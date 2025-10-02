@@ -22,6 +22,15 @@
             margin-bottom: 40px;
             text-align: center;
             color: #333;
+            filter: blur(5px);
+            transition: filter 0.3s ease;
+            cursor: pointer;
+            padding: 10px;
+            user-select: none;
+        }
+        
+        .question.clear {
+            filter: blur(0);
         }
         
         #yesButton {
@@ -58,13 +67,14 @@
     </style>
 </head>
 <body>
-    <div class="question">Скинешь пяточки?</div>
+    <div class="question" id="questionText">Скинешь пяточки?</div>
     <button id="yesButton">Да</button>
     <button id="noButton">Нет</button>
 
     <script>
         const noButton = document.getElementById('noButton');
         const yesButton = document.getElementById('yesButton');
+        const questionText = document.getElementById('questionText');
         
         // Обработчик для плавающей кнопки "Нет"
         noButton.addEventListener('touchstart', function(e) {
@@ -75,6 +85,17 @@
         // Обработчик для кнопки "Да"
         yesButton.addEventListener('click', function() {
             alert('Отлично! Скидывай пяточки! 😊');
+        });
+
+        // Обработчик для размытого текста
+        questionText.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            this.classList.add('clear');
+        });
+
+        // Также добавим обработчик для клика мышью (для тестирования на ПК)
+        questionText.addEventListener('click', function() {
+            this.classList.add('clear');
         });
 
         function moveButton() {
